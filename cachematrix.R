@@ -1,19 +1,38 @@
-## Store a matrix and cache it's inverse
-## It is composed of 2 components:
-## - the makeCacheMatrix function
-## - the cacheSolve function
+# Store to cache/print an object containing a matrix and its inverse
+
+# It is composed of 2 main functions:
+# * the makeCacheMatrix function can:
+#     - store values of a matrix to cache
+#     - get the values of a matrix from cache
+#     - store the values of the inverse matrix to cache
+#     - get the values of the inverse matrix from cache
+# * the cacheSolve function can, alternatively:
+#     - get the inverse matrix from cache (if available)
+#     - compute the inverse matrix, store it to cache,
+#       return its values
+#
+#
+# Usage
+# 1. Create a cacheble matrix/inverse with
+#    > foo <- makeCacheMatrix()
+# 
+# 2. Store the values of the matrix
+#    > foo$set(data, nrow=n, ncol=n)
+# 
+# 3. OPTIONAL. Print the matrix
+#    > foo$get()
+# 
+# 4. Print the inverse matrix
+#    > cacheSolve(foo)
+#   Inverse matrix will be printed from cache if available.
+#   Otherwise, it will be computed, stored to cache for
+#   future use, then printed
 
 
 
 ####################################################
-## makeCacheMatrix
+# makeCacheMatrix
 ####################################################
-
-## This function is a list containing functions to:
-## * set the values of a matrix
-## * get the values of a matrix
-## * set the values of the inverse matrix
-## * get the values of the inverse matrix
 
 makeCacheMatrix <- function(x = matrix()) {
   i <- NULL
@@ -43,12 +62,8 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ####################################################
-## cacheSolve
+# cacheSolve
 ####################################################
-
-## Return the inverse of a matrix. If the inverse has already been computed
-## return the cached values. Otherwise compute the inverse, cache the values
-## for future use, and return them
 
 cacheSolve <- function(x, ...) {
   #get the cached inverse matrix
