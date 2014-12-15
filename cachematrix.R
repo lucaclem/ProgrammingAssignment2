@@ -10,9 +10,11 @@
 #     - get the inverse matrix from cache (if available)
 #     - compute the inverse matrix, store it to cache,
 #       return its values
+
+
+
+# Usage:
 #
-#
-# Usage
 # 1. Create a cacheble matrix/inverse with
 #    > foo <- makeCacheMatrix()
 # 
@@ -35,27 +37,27 @@
 ####################################################
 
 makeCacheMatrix <- function(x = matrix()) {
-  i <- NULL
-  
-  # set the matrix
-  set <- function(a, nrow, ncol) {
-    x <<- matrix(a, nrow = nrow, ncol = ncol)
-    i <<- NULL
-  }
-  
-  # print the matrix
-  get <- function() x
-  
-  # save the inverse matrix to cache
-  setinverse <- function(inverse) i <<- inverse
-  
-  # print the inverse matrix
-  getinverse <- function() i
-  
-  # return the cacheMatrix object
-  list(set = set, get = get,
-       setinverse = setinverse,
-       getinverse = getinverse)
+        i <- NULL
+        
+        # set the matrix
+        set <- function(a, nrow, ncol) {
+                x <<- matrix(a, nrow = nrow, ncol = ncol)
+                i <<- NULL
+        }
+        
+        # print the matrix
+        get <- function() x
+        
+        # save the inverse matrix to cache
+        setinverse <- function(inverse) i <<- inverse
+        
+        # print the inverse matrix
+        getinverse <- function() i
+        
+        # return the cacheMatrix object
+        list(set = set, get = get,
+             setinverse = setinverse,
+             getinverse = getinverse)
 }
 
 
@@ -66,22 +68,22 @@ makeCacheMatrix <- function(x = matrix()) {
 ####################################################
 
 cacheSolve <- function(x, ...) {
-  #get the cached inverse matrix
-  i <- x$getinverse()
-  
-  # print cached inverse if available
-  if(!is.null(i)) {
-    message("getting cached data")
-    return(i)
-  }
-  
-  # compute the inverse matrix
-  data <- x$get()
-  i <- solve(data, ...)
-  
-  # save inverse matrix to cache
-  x$setinverse(i)
-  
-  # print inverse matrix
-  i
+        #get the cached inverse matrix
+        i <- x$getinverse()
+        
+        # print cached inverse if available
+        if(!is.null(i)) {
+                message("getting cached data")
+                return(i)
+        }
+        
+        # compute the inverse matrix
+        data <- x$get()
+        i <- solve(data, ...)
+        
+        # save inverse matrix to cache
+        x$setinverse(i)
+        
+        # print inverse matrix
+        i
 }
