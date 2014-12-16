@@ -3,21 +3,23 @@
 
 # Usage:
 #
-# 1. Create a cacheble matrix/inverse with
-#    > foo <- makeCacheMatrix()
+# 1. Create an object allowing to store a matrix and
+#    its inverse into cache
+#    > foo <- makeCacheMatrix(matrix(data, nrow, ncol))
 # 
-# 2. Store the values of the matrix
-#    > foo$set(data, nrow=n, ncol=n)
-# 
-# 3. OPTIONAL. Print the matrix
+# 2. OPTIONAL. Print the matrix
 #    > foo$get()
 # 
-# 4. Print the inverse matrix
+# 3. Compute, save to cache, and print the inverse matrix
 #    > cacheSolve(foo)
-#   Inverse matrix will be printed from cache if available.
-#   Otherwise, it will be computed, stored to cache for
-#   future use, then printed
-
+#
+# 4. If you need to print the inverse matrix again, just re-run
+#    > cacheSolve(foo)
+#    This time, inverse matrix will be printed from cache, without
+#    solving it again.
+#
+# Inverse matrix will be deleted from cache if the values of the matrix
+# will be modified.
 
 
 ####################################################
@@ -35,8 +37,8 @@ makeCacheMatrix <- function(x = matrix()) {
         i <- NULL
         
         # set the matrix
-        set <- function(a, nrow, ncol) {
-                x <<- matrix(a, nrow = nrow, ncol = ncol)
+        set <- function(y) {
+                x <<- y
                 i <<- NULL
         }
         
